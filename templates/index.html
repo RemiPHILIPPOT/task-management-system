@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Task Management System</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static', filename='css/style.css') }}"
+        />
+    </head>
+    <body>
+        <h1>Task Management System</h1>
+        <form method="post" action="/">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>New Task:</legend>
+                <div>
+                    {{ form.title.label }}<br />
+                    {{ form.title(size=30) }}
+                </div>
+                <div>
+                    {{ form.description.label }}<br />
+                    {{ form.description(size=50) }}
+                </div>
+                <div>
+                    {{ form.priority.label }}<br />
+                    {{ form.priority }}
+                </div>
+                <div>{{ form.submit() }}</div>
+            </fieldset>
+        </form>
+        <hr />
+        <h2>Tasks:</h2>
+        {% for task in tasks %}
+        <div>
+            <p>
+                <strong>{{ task.title }}</strong> - {{ task.description }} - {{
+                task.priority }}
+            </p>
+            <form method="post" action="/delete/{{ task.id }}">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </body>
+</html>
